@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Moderne | Dark & Green Leather</title>
+    <!-- Intégration d'une police géométrique et épurée -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES DE DESIGN --- */
+        :root {
+            --bg-main: #0d0f0d;       /* Fond noir mat profond */
+            --bg-card: #151916;       /* Gris anthracite texture cuir */
+            --border-cuir: #232a25;   /* Bordure grise texturée */
+            --accent-green: #10b981;  /* Vert émeraude éclatant */
+            --accent-green-dim: rgba(16, 185, 129, 0.15);
+            --text-main: #f3f4f6;     /* Blanc cassé pour le confort visuel */
+            --text-muted: #9ca3af;    /* Gris clair pour les sous-titres */
+        }
+
+        /* --- STYLES GÉNÉRAUX --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- BARRE DE NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            background-color: rgba(13, 15, 13, 0.8);
+            border-bottom: 1px solid var(--border-cuir);
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 160px 0 100px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .badge {
+            background-color: var(--accent-green-dim);
+            color: var(--accent-green);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        h1 span {
+            color: var(--accent-green);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-green);
+            color: #000;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+            background-color: #34d399;
+        }
+
+        /* --- STRUCTURE DE SECTION --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            letter-spacing: -1px;
+            margin-bottom: 3rem;
+        }
+
+        /* --- GRILLE BENTO (PROJETS) --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-cuir);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet grain de cuir épuré */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 0);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-large {
+            grid-column: span 2;
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- CV & TIMELINE --- */
+        .cv-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .timeline {
+            border-left: 1px solid var(--border-cuir);
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: calc(-2rem - 5px);
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .time {
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- FORMULAIRE DE CONTACT STYLE CUIR --- */
+        .contact-section {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-cuir);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 0);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: rgba(13, 15, 13, 0.7);
+            border: 1px solid var(--border-cuir);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px var(--accent-green-dim);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        /* --- STYLES DES ANIMATIONS (SCROLL INTERSECTION OBSERVER) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                        transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Délais d'affichage séquentiels optionnels */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-cuir);
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 900px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-large {
+                grid-column: span 1;
+            }
+            .cv-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .contact-form {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav">
+            <div class="logo">SAINT - CHRIST DUGA <span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#parcours">Parcours</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero reveal">
+            <div class="badge">Disponible pour de nouveaux projets</div>
+            <h1>Concevoir des interfaces <span>épurées</span> & des codes précis.</h1>
+            <p>Créateur d'expériences numériques haut de gamme où la sobriété du design rencontre l'efficacité technologique.</p>
+            <a href="#contact" class="btn">Me contacter</a>
+        </section>
+
+        <section id="projets">
+            <h2 class="section-title reveal">Projets sélectionnés</h2>
+            <div class="bento-grid">
+                
+                <div class="card card-large reveal delay-1">
+                    <span class="card-tag">UI/UX Design & Dev</span>
+                    <h3>Plateforme E-Commerce Minimaliste</h3>
+                    <p>Refonte intégrale de l'expérience utilisateur pour une marque de maroquinerie de luxe. Intégration fluide et animations maîtrisées.</p>
+                </div>
+
+                <div class="card reveal delay-2">
+                    <span class="card-tag">Branding</span>
+                    <h3>Identité Visuelle Studio</h3>
+                    <p>Création d'un univers graphique sombre et texturé axé sur le minimalisme géométrique.</p>
+                </div>
+
+                <div class="card reveal delay-1">
+                    <span class="card-tag">Web App</span>
+                    <h3>Dashboard de Gestion FinTech</h3>
+                    <p>Interface épurée de suivi analytique avec traitement de données cryptées en temps réel.</p>
+                </div>
+
+                <div class="card card-large reveal delay-2">
+                    <span class="card-tag">Mobile Application</span>
+                    <h3>Application de Productivité Épurée</h3>
+                    <p>Une application mobile sans distraction conçue pour optimiser le focus quotidien des équipes créatives.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="parcours">
+            <h2 class="section-title reveal">Parcours & Expériences</h2>
+            <div class="cv-container">
+                
+                <div class="reveal delay-1">
+                    <h3 style="margin-bottom: 2rem; color: var(--text-main);">Expériences professionnelles</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="time">2024 - Présent</span>
+                            <h4>Senior Product Designer — Agence Studio Noir</h4>
+                            <p>Direction artistique des projets clients grands comptes. Création de systèmes de design et encadrement des équipes front-end.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="time">2021 - 2024</span>
+                            <h4>Développeur UI Freelance</h4>
+                            <p>Développement de portfolios sur-mesure et d'interfaces interactives haut de gamme pour créatifs et architectes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-2">
+                    <h3 style="margin-bottom: 2rem; color: var(--text-main);">Compétences & Outils</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="time">Design d'interface</span>
+                            <h4>Figma & Direction Artistique</h4>
+                            <p>Maîtrise avancée des grilles de mise en page, de la typographie et de la psychologie des couleurs sombres.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="time">Développement</span>
+                            <h4>Front-end Moderne</h4>
+                            <p>HTML5 / CSS3 avancé, JavaScript (ES6+), React, TailwindCSS, intégration d'animations interactives.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto 3rem auto;" class="reveal">
+                <h2 class="section-title" style="margin-bottom: 1.5rem;">Démarrons un projet ensemble</h2>
+                <p style="color: var(--text-muted);">Vous avez une idée de produit, un besoin de refonte ou une opportunité de collaboration ? Laissez un message via le formulaire ci-dessous.</p>
+            </div>
+
+            <form class="contact-form reveal delay-1" id="portfolioForm" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Objet du message</label>
+                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Proposition de projet, Collaboration..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Votre message</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Décrivez brièvement votre projet ou votre besoin..." required></textarea>
+                </div>
+
+                <div style="text-align: right; margin-top: 2rem;">
+                    <button type="submit" class="btn">Envoyer le message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Votre Nom. Conçu avec soin. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. GESTION DES ANIMATIONS REVEAL ON SCROLL
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToReveal = document.querySelectorAll('.reveal');
+            
+            const options = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            elementsToReveal.forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        // 2. ENVOI DU FORMULAIRE
+        const form = document.getElementById('portfolioForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            console.log("Données envoyées : ", formData);
+            alert(`Merci ${formData.name} ! Votre message a été simulé avec succès.`);
+            form.reset();
+        });
+    </script>
+    </body>
+</html>

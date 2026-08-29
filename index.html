@@ -3,55 +3,475 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Mon portfolio</title>
+    <title>Portfolio | Accueil Épuré</title>
+    <!-- Polices et icônes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES DU THÈME --- */
+        :root {
+            --bg-main: #0d0f0d;       /* Fond noir mat profond */
+            --bg-card: #151916;       /* Gris anthracite texture cuir */
+            --border-cuir: #232a25;   /* Bordure grise texturée */
+            --accent-green: #10b981;  /* Vert émeraude éclatant */
+            --accent-green-dim: rgba(16, 185, 129, 0.15);
+            --text-main: #f3f4f6;     /* Blanc cassé */
+            --text-muted: #9ca3af;    /* Gris clair sous-titres */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- MISE EN PAGE ASYMÉTRIQUE --- */
+        .layout-grid {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            position: relative;
+        }
+
+        /* Colonne Gauche */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-block {
+            margin-bottom: 3.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .title-sub {
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* Section 1 : A Propos */
+        .apropos-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-cuir);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .apropos-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 0);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: block;
+            font-weight: 700;
+        }
+
+        .apropos-box p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .link-inline {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .link-inline:hover {
+            color: var(--accent-green);
+            border-color: var(--text-main);
+        }
+
+        .link-inline i {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Colonne Droite : Image */
+        .right-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-wrapper {
+            width: 100%;
+            height: 500px;
+            border-radius: 24px;
+            border: 1px solid var(--border-cuir);
+            overflow: hidden;
+            background-color: var(--bg-card);
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+        }
+
+        /* Section 3 : Bento Projets */
+        .bento-container {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .bento-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .bento-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-cuir);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bento-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 0);
+            background-size: 4px 4px;
+            pointer-events: none;
+        }
+
+        .bento-link:hover .bento-box {
+            border-color: var(--accent-green);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .bento-box h3 {
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bento-box h3 i {
+            font-size: 1rem;
+            color: var(--accent-green);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .bento-link:hover .bento-box h3 i {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-list {
+            list-style: none;
+        }
+
+        .project-item {
+            font-size: 1.05rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(35, 42, 37, 0.5);
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .bento-link:hover .project-item {
+            color: var(--text-main);
+        }
+
+        /* --- BALLON FLOTTANT --- */
+        menu {
+            --size: 2.8rem;
+            --radius: 5.5rem;
+            --padding: 1rem;
+            --bg-color: var(--bg-card);
+            --fg-color: var(--text-muted);
+            --hi-color: var(--accent-green);
+
+            position: absolute;
+            z-index: 999;
+            cursor: grab;
+            user-select: none;
+            /* Placement initial par défaut entre A Propos et les Bento */
+            top: 410px;
+            left: 40px;
+            width: calc(1.6 * var(--size));
+            height: calc(1.6 * var(--size));
+        }
+
+        menu:active {
+            cursor: grabbing;
+        }
+
+        menu > * {
+            position: absolute;
+            display: grid;
+            place-content: center;
+            border-radius: 50%;
+            background: var(--bg-color);
+            color: var(--fg-color);
+            text-decoration: none;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-cuir);
+        }
+
+        menu > .action {
+            --factor: 0;
+            width: var(--size);
+            height: var(--size);
+            right: calc(0.3 * var(--size));
+            bottom: calc(0.3 * var(--size));
+            opacity: 0;
+            font-size: 1.1rem;
+            transform: rotate(calc(-1 * var(--angle))) translateY(calc(-1 * var(--radius) * var(--factor))) rotate(var(--angle));
+            transition: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 250ms ease-in-out, box-shadow 250ms ease-in-out, color 250ms ease-in-out, border-color 250ms;
+        }
+
+        menu > .action:hover, menu > .trigger:hover {
+            color: var(--hi-color);
+            border-color: var(--accent-green);
+            box-shadow: 0px 0px 0px 0.25rem var(--accent-green-dim);
+        }
+
+        menu.open > .action {
+            --factor: 1;
+            opacity: 1;
+        }
+
+        menu > .action:nth-child(1) { --angle: 0deg; transition-delay: 0ms; }
+        menu > .action:nth-child(2) { --angle: 45deg; transition-delay: 40ms; }
+        menu > .action:nth-child(3) { --angle: 90deg; transition-delay: 80ms; }
+
+        menu > .trigger {
+            width: calc(1.4 * var(--size));
+            height: calc(1.4 * var(--size));
+            bottom: 0;
+            right: 0;
+            font-size: 1.2rem;
+            transition: box-shadow 250ms ease-in-out, color 250ms ease-in-out, border-color 250ms;
+            color: var(--accent-green);
+        }
+
+        menu > .trigger > i {
+            transition: transform 250ms ease-in-out;
+        }
+
+        menu.open > .trigger > i {
+            transform: rotate(-135deg);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .bento-container {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+            .profile-wrapper {
+                height: 350px;
+            }
+            menu {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                top: auto !important;
+                left: auto !important;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <section class="a-propos">
-        <div class="main">
-            <img src="chris.jpg" alt="Photo de profil de Chris">
 
-            <div class="text-a-propos">
-                <h1>DUGA SAINT-CHRIST</h1>
+    <div class="layout-grid">
+        <div class="left-col">
+            <div class="header-block">
+                <h1>SAINT-CHRIST DUGA</h1>
+                <span class="title-sub">Étudiant et développeur.</span>
+            </div>
 
-                <h5>
-                    Étudiant en <span>science informatique</span>
-                    à l’Université Protestante au Congo
-                </h5>
-
-                <h5>Formation en cours :</h5>
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                    <li>Python</li>
-                </ul>
-
-                <h5>Projet en cours :</h5>
-                <p class="text-masquer">
-                    Système de gestion des dossiers médicaux
-                </p>
-
-                <div class="button-group">
-                    <a href="tel:+243976938179">
-                        <button class="phone-button" type="button">Me contacter</button>
-                    </a>
-
-                    <a href="cv.pdf" download target="_blank">
-                        <button class="download-button" type="button">Mon CV</button>
-                    </a>
-                </div>
-
-                <div class="social-links">
-                    <h5>Mes réseaux</h5>
-                    <a href="https://x.com/i/flow/login" class="social-icon x-twitter" aria-label="X Twitter">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                </div>
+            <div class="apropos-box">
+                <span class="section-label">À Propos</span>
+                <p>Étudiant, modélisateur 3D et développeur fullstack. Mon travail fusionne la rigueur technique avec un esthétisme fonctionnel.</p>
+                <a href="form&etud.html" class="link-inline">Consulter mes formations & études <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
-    </section>
+
+        <div class="right-col">
+            <div class="profile-wrapper">
+                <img src="photo_profile.jpg" alt="photo_profile" class="profile-img">
+            </div>
+        </div>
+
+        <div class="bento-container">
+            <a href="projet.html" class="bento-link">
+                <div class="bento-box">
+                    <h3>Projets finis <i class="fas fa-arrow-up-right-from-square"></i></h3>
+                    <ul class="project-list">
+                        <li class="project-item">Système de gestion des dossiers médicaux en réseaux local</li>
+                        <li class="project-item">Site internet WIZER</li>
+                        <li class="project-item">Plateforme FinTech Transparente</li>
+                    </ul>
+                </div>
+            </a>
+
+            <a href="projet.html" class="bento-link">
+                <div class="bento-box">
+                    <h3>Projets en cours <i class="fas fa-arrow-up-right-from-square"></i></h3>
+                    <ul class="project-list">
+                        <li class="project-item">IA RosalIA</li>
+                        <li class="project-item">Extension de Productivité Sans Distraction</li>
+                        <li class="project-item">Refonte Éditoriale Studio d'Architecture</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+
+        <menu id="draggableMenu">
+            <a href="https://ig.me/m/votre_username" target="_blank" class="action" title="Instagram Direct"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:saintchristduga172@gmail.com" target="_blank" class="action" title="Envoyer un E-mail"><i class="far fa-envelope"></i></a>
+            <a href="https://wa.me/+243976938719" target="_blank" class="action" title="WhatsApp Direct"><i class="fab fa-whatsapp"></i></a>
+
+            <a href="#" class="trigger" id="menuTrigger"><i class="fas fa-comments"></i></a>
+        </menu>
+    </div>
+
+    <script>
+        const menu = document.getElementById("draggableMenu");
+        const trigger = document.getElementById("menuTrigger");
+
+        let isDragging = false;
+        let dragOccurred = false;
+        let startX, startY, initialX, initialY;
+
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (dragOccurred) return;
+            menu.classList.toggle("open");
+        });
+
+        const startDrag = (e) => {
+            if (e.target.closest('.action')) return;
+
+            isDragging = true;
+            dragOccurred = false;
+
+            const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+            startX = clientX;
+            startY = clientY;
+
+            initialX = menu.offsetLeft;
+            initialY = menu.offsetTop;
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        };
+
+        const drag = (e) => {
+            if (!isDragging) return;
+            if (e.cancelable) e.preventDefault();
+
+            const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+
+            const dx = clientX - startX;
+            const dy = clientY - startY;
+
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+                dragOccurred = true;
+            }
+
+            menu.style.left = `${initialX + dx}px`;
+            menu.style.top = `${initialY + dy}px`;
+            menu.style.bottom = 'auto';
+            menu.style.right = 'auto';
+        };
+
+        const stopDrag = () => {
+            isDragging = false;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+            
+            setTimeout(() => { dragOccurred = false; }, 50);
+        };
+
+        menu.addEventListener('mousedown', startDrag);
+        menu.addEventListener('touchstart', startDrag, { passive: true });
+    </script>
 </body>
 </html>
